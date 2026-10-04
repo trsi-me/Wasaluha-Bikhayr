@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة حالة - وصلها بخير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands-helping logo-icon"></i>
+                    <span class="logo-text">وصلها بخير</span>
+                    <span class="logo-tagline">خيرك يوصل أسرع</span>
+                </div>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="main-nav" id="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="cases.html" class="nav-link">الحالات</a>
+                    <a href="add_case.html" class="nav-link" style="display: none;">طلب مساعدة</a>
+                    <a href="account.html" class="nav-link" style="display: none;">الحساب</a>
+                    <span class="user-info" style="display: none;"></span>
+                    <a href="logout.html" class="nav-link logout" style="display: none;">تسجيل خروج</a>
+                    <a href="login.html" class="nav-link">تسجيل دخول</a>
+                    <a href="register.html" class="nav-link">تسجيل جديد</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-plus-circle page-icon"></i>
+                    إضافة حالة جديدة
+                </h1>
+                <p class="page-subtitle">أضف حالتك وانتظر المتبرعين لتوفيرها</p>
+            </div>
+            
+            <div class="card form-card">
+                <h2 class="card-title">
+                    <i class="fas fa-file-alt title-icon"></i>
+                    معلومات الحالة
+                </h2>
+                
+                <div id="error-message" class="alert alert-error" style="display: none;"></div>
+                <div id="success-message" class="alert alert-success" style="display: none;"></div>
+
+                <form id="add-case-form">
+                    <div class="form-group">
+                        <label class="form-label" for="item_name">اسم الشيء الذي تحتاجه *</label>
+                        <input type="text" class="form-input" id="item_name" name="item_name" required minlength="3" placeholder="مثال: طعام، ملابس، أدوية...">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="quantity">العدد *</label>
+                        <input type="number" class="form-input" id="quantity" name="quantity" required min="1" max="1000" value="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="type">النوع</label>
+                        <select class="form-select" id="type" name="type">
+                            <option value="">-- اختر النوع --</option>
+                            <option value="طعام">طعام</option>
+                            <option value="ملابس">ملابس</option>
+                            <option value="أدوية">أدوية</option>
+                            <option value="نقدي">نقدي</option>
+                            <option value="عيني">عيني</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="urgent" name="urgent" value="1">
+                            <label class="form-label" for="urgent" style="margin: 0;">حالة عاجلة</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-accent" style="width: 100%;">
+                        <i class="fas fa-paper-plane btn-icon"></i>
+                        <span>إرسال</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <p>كل الحقوق محفوظة لجمعية يد الخير &copy; <span id="current-year"></span></p>
+        </div>
+    </footer>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            const isLoggedIn = await initAuth();
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            if (currentUser && currentUser.role !== 'needy') {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            updateNavigation();
+
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+            
+            document.getElementById('add-case-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const errorMsg = document.getElementById('error-message');
+                const successMsg = document.getElementById('success-message');
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'none';
+                
+                const item_name = document.getElementById('item_name').value.trim();
+                const quantity = parseInt(document.getElementById('quantity').value);
+                const type = document.getElementById('type').value.trim();
+                const urgent = document.getElementById('urgent').checked;
+                
+                if (!item_name || item_name.length < 3) {
+                    errorMsg.textContent = 'اسم الاحتياج يجب أن يكون 3 أحرف على الأقل';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                
+                if (quantity < 1 || quantity > 1000) {
+                    errorMsg.textContent = 'العدد يجب أن يكون بين 1 و 1000';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    const result = await API.addCase({
+                        csrf_token: csrfToken,
+                        item_name,
+                        quantity,
+                        type: type || null,
+                        urgent
+                    });
+                    
+                    if (result.status === 'ok') {
+                        successMsg.textContent = result.msg || 'تم إضافة الحالة بنجاح!';
+                        successMsg.style.display = 'block';
+                        document.getElementById('add-case-form').reset();
+                        setTimeout(() => {
+                            window.location.href = 'cases.html';
+                        }, 2000);
+                    } else {
+                        errorMsg.textContent = result.msg || 'حدث خطأ أثناء إضافة الحالة';
+                        errorMsg.style.display = 'block';
+                    }
+                } catch (error) {
+                    errorMsg.textContent = 'حدث خطأ في الاتصال';
+                    errorMsg.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

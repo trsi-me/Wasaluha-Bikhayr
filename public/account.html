@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي - وصلها بخير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands-helping logo-icon"></i>
+                    <span class="logo-text">وصلها بخير</span>
+                    <span class="logo-tagline">خيرك يوصل أسرع</span>
+                </div>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="main-nav" id="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="cases.html" class="nav-link">الحالات</a>
+                    <a href="add_case.html" class="nav-link" style="display: none;">طلب مساعدة</a>
+                    <a href="account.html" class="nav-link" style="display: none;">الحساب</a>
+                    <span class="user-info" style="display: none;"></span>
+                    <a href="logout.html" class="nav-link logout" style="display: none;">تسجيل خروج</a>
+                    <a href="login.html" class="nav-link">تسجيل دخول</a>
+                    <a href="register.html" class="nav-link">تسجيل جديد</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-user-circle page-icon"></i>
+                    حسابي
+                </h1>
+                <p class="page-subtitle">إدارة حسابك ومتابعة حالاتك</p>
+            </div>
+
+            <div id="account-container">
+                <div style="text-align: center; padding: 2rem; color: var(--muted);">جاري التحميل...</div>
+            </div>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <p>كل الحقوق محفوظة لجمعية يد الخير &copy; <span id="current-year"></span></p>
+        </div>
+    </footer>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
+        async function loadAccountInfo() {
+            const container = document.getElementById('account-container');
+
+            try {
+                const userInfo = await API.getUserInfo();
+                if (userInfo.status === 'ok') {
+                    const user = userInfo.user;
+                    const stats = userInfo.stats;
+                    const cases = userInfo.cases || [];
+
+                    container.innerHTML = `
+                        <div class="account-section">
+                            <div class="card">
+                                <h2 class="card-title">
+                                    <i class="fas fa-info-circle title-icon"></i>
+                                    معلومات الحساب
+                                </h2>
+                                <div class="account-info">
+                                    <div class="info-item">
+                                        <div class="info-label">الاسم :</div>
+                                        <div class="info-value">${escapeHtml(user.name)}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">البريد الإلكتروني :</div>
+                                        <div class="info-value">${escapeHtml(user.email || 'غير محدد')}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">رقم الجوال :</div>
+                                        <div class="info-value">${escapeHtml(user.phone || 'غير محدد')}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">الدور :</div>
+                                        <div class="info-value">${user.role === 'donor' ? 'متبرع' : 'مستفيد'}</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">عدد الحالات :</div>
+                                        <div class="info-value">${stats.cases_count}</div>
+                                    </div>
+                                    ${user.role === 'donor' ? `
+                                    <div class="info-item">
+                                        <div class="info-label">عدد التبرعات :</div>
+                                        <div class="info-value">${stats.donations_count}</div>
+                                    </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-section">
+                            <div class="card">
+                                <h2 class="card-title">
+                                    <i class="fas fa-list title-icon"></i>
+                                    حالاتي
+                                </h2>
+                                ${cases.length === 0 ? '<p style="color: var(--muted); text-align: center;">لا توجد حالات</p>' : `
+                                <div class="cases-grid">
+                                    ${cases.map(caseItem => `
+                                        <div class="case-card ${caseItem.urgent ? 'urgent' : ''}">
+                                            <div class="case-header">
+                                                <div class="case-title">${escapeHtml(caseItem.item_name)}</div>
+                                                ${caseItem.urgent ? '<span class="urgent-badge">عاجل</span>' : ''}
+                                            </div>
+                                            <div class="case-info">
+                                                <p><strong>العدد :</strong> ${escapeHtml(caseItem.quantity)}</p>
+                                                ${caseItem.type ? `<p><strong>النوع :</strong> ${escapeHtml(caseItem.type)}</p>` : ''}
+                                                <p><strong>الحالة :</strong> ${caseItem.status === 'open' ? 'مفتوحة' :
+                            caseItem.status === 'claimed' ? 'تم التوفير' :
+                                caseItem.status === 'fulfilled' ? 'مكتملة' :
+                                    caseItem.status === 'closed' ? 'مغلقة' : caseItem.status
+                        }</p>
+                                                <p><strong>التاريخ :</strong> ${formatDate(caseItem.created_at)}</p>
+                                            </div>
+                                            ${caseItem.status === 'open' ? `
+                                            <div class="case-actions">
+                                                <button class="btn btn-danger" onclick="deleteCase(${caseItem.id})"><i class="fas fa-trash"></i> حذف</button>
+                                            </div>
+                                            ` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                `}
+                            </div>
+                        </div>
+                        <div class="account-section">
+                            <div class="card">
+                                <div class="card-title-row">
+                                    <h2 class="card-title">
+                                        <i class="fas fa-bell title-icon"></i>
+                                        الإشعارات
+                                    </h2>
+                                    <button class="btn btn-sm" onclick="refreshNotifications()">
+                                        <i class="fas fa-sync-alt btn-icon"></i>
+                                        <span>تحديث</span>
+                                    </button>
+                                </div>
+                                <div class="notifications-list" id="notifications-list">
+                                    <div style="text-align: center; padding: 1rem; color: var(--muted);">جاري التحميل...</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    await loadNotifications();
+                } else {
+                    container.innerHTML = '<div class="alert alert-error">حدث خطأ أثناء جلب معلومات الحساب</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="alert alert-error">حدث خطأ في الاتصال</div>';
+            }
+        }
+
+        async function loadNotifications() {
+            const container = document.getElementById('notifications-list');
+            if (!container) return;
+
+            try {
+                const result = await API.getNotifications();
+                if (result.status === 'ok' && result.notifications) {
+                    if (result.notifications.length === 0) {
+                        container.innerHTML = '<p style="color: var(--muted); text-align: center;">لا توجد إشعارات</p>';
+                    } else {
+                        container.innerHTML = result.notifications.map(notif => {
+                            const hasCaseId = notif.case_id && notif.case_id > 0;
+                            const hasDeliveryMethod = notif.delivery_method && notif.delivery_method !== null;
+
+                            if (hasCaseId && !hasDeliveryMethod) {
+                                // إشعار جديد يحتاج اختيار طريقة الاستلام/التوصيل
+                                return `
+                                    <div class="notification-item ${notif.read_flag == 0 ? 'unread' : ''}" id="notif-${notif.id}">
+                                        <div class="notification-message">${escapeHtml(notif.message)}</div>
+                                        <div class="notification-time">${formatDate(notif.created_at)}</div>
+                                        <div class="delivery-options" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                                            <p style="margin-bottom: 0.75rem; font-weight: 500;">اختر طريقة الاستلام:</p>
+                                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                                <button class="btn btn-accent" onclick="selectDeliveryMethod(${notif.id}, 'pickup')" style="flex: 1; min-width: 150px;">
+                                                    <i class="fas fa-hand-holding"></i> الاستلام من جمعية يد الخير
+                                                </button>
+                                                <button class="btn btn-primary" onclick="selectDeliveryMethod(${notif.id}, 'delivery')" style="flex: 1; min-width: 150px;">
+                                                    <i class="fas fa-truck"></i> التوصيل من جمعية يد الخير
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            } else if (hasCaseId && hasDeliveryMethod) {
+                                // تم اختيار طريقة الاستلام/التوصيل
+                                const methodText = notif.delivery_method === 'pickup' ? 'الاستلام من جمعية يد الخير' : 'التوصيل من جمعية يد الخير';
+                                return `
+                                    <div class="notification-item ${notif.read_flag == 0 ? 'unread' : ''}" id="notif-${notif.id}">
+                                        <div class="notification-message">${escapeHtml(notif.message)}</div>
+                                        <div class="notification-time">${formatDate(notif.created_at)}</div>
+                                        <div class="delivery-confirmation" style="margin-top: 1rem; padding: 1rem; background: var(--primary-light); border-radius: 8px; border-right: 3px solid var(--primary);">
+                                            <p style="margin: 0; color: var(--primary); font-weight: 500;">
+                                                <i class="fas fa-check-circle"></i> ${methodText}
+                                            </p>
+                                            <p style="margin: 0.5rem 0 0 0; color: var(--text);">
+                                                سيتم التواصل معكم على رقمكم في أقرب وقت
+                                            </p>
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                // إشعار عادي
+                                return `
+                                    <div class="notification-item ${notif.read_flag == 0 ? 'unread' : ''}">
+                                        <div class="notification-message">${escapeHtml(notif.message)}</div>
+                                        <div class="notification-time">${formatDate(notif.created_at)}</div>
+                                        ${notif.read_flag == 0 ? `<button class="btn btn-sm" onclick="markAsRead(${notif.id})" style="margin-top: 0.5rem;">وضع كمقروء</button>` : ''}
+                                    </div>
+                                `;
+                            }
+                        }).join('');
+                    }
+                }
+            } catch (error) {
+                container.innerHTML = '<p style="color: var(--urgent); text-align: center;">حدث خطأ أثناء جلب الإشعارات</p>';
+            }
+        }
+
+        async function selectDeliveryMethod(notifId, method) {
+            try {
+                const result = await API.setDeliveryMethod(notifId, method, csrfToken);
+                if (result.status === 'ok') {
+                    // تحديث عرض الإشعار
+                    await loadNotifications();
+                } else {
+                    showToast(result.msg || 'حدث خطأ أثناء حفظ الاختيار', 'error');
+                }
+            } catch (error) {
+                showToast('حدث خطأ في الاتصال', 'error');
+            }
+        }
+
+        async function refreshNotifications() {
+            await loadNotifications();
+        }
+
+        async function markAsRead(notifId) {
+            try {
+                const result = await API.markNotificationRead(notifId, csrfToken);
+                if (result.status === 'ok') {
+                    await loadNotifications();
+                }
+            } catch (error) {
+                showToast('حدث خطأ', 'error');
+            }
+        }
+
+        async function deleteCase(caseId) {
+            if (!confirm('هل أنت متأكد من حذف هذه الحالة؟')) {
+                return;
+            }
+
+            try {
+                const result = await API.deleteCase(caseId, csrfToken);
+                if (result.status === 'ok') {
+                    showToast(result.msg || 'تم حذف الحالة بنجاح', 'success');
+                    await loadAccountInfo();
+                } else {
+                    showToast(result.msg || 'حدث خطأ أثناء حذف الحالة', 'error');
+                }
+            } catch (error) {
+                showToast('حدث خطأ في الاتصال', 'error');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            const isLoggedIn = await initAuth();
+            if (!isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // csrfToken is already declared in api.js, just ensure it's set
+            if (window.CSRF_TOKEN) {
+                csrfToken = window.CSRF_TOKEN;
+            }
+
+            updateNavigation();
+
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function () {
+                    mainNav.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+
+            await loadAccountInfo();
+        });
+    </script>
+</body>
+
+</html>

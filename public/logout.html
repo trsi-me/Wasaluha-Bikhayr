@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الخروج - وصلها بخير</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div style="text-align: center; padding: 4rem; color: var(--muted);">
+        <p>جاري تسجيل الخروج...</p>
+    </div>
+    <script src="../assets/js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await API.logout();
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
+

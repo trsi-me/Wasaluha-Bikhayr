@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وصلها بخير - خيرك يوصل أسرع</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands-helping logo-icon"></i>
+                    <span class="logo-text">وصلها بخير</span>
+                    <span class="logo-tagline">خيرك يوصل أسرع</span>
+                </div>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="main-nav" id="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="cases.html" class="nav-link">الحالات</a>
+                    <a href="add_case.html" class="nav-link" style="display: none;">طلب مساعدة</a>
+                    <a href="account.html" class="nav-link" style="display: none;">الحساب</a>
+                    <span class="user-info" style="display: none;"></span>
+                    <a href="logout.html" class="nav-link logout" style="display: none;">تسجيل خروج</a>
+                    <a href="login.html" class="nav-link">تسجيل دخول</a>
+                    <a href="register.html" class="nav-link">تسجيل جديد</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="verse-container">
+                        <i class="fas fa-book-quran verse-icon"></i>
+                        <div class="verse">
+                            "مَن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً
+                            وَاللَّهُ يَقْبِضُ وَيَبْسُطُ وَإِلَيْهِ تُرْجَعُونَ"
+                        </div>
+                        <div class="verse-reference">سورة البقرة - الآية 245</div>
+                    </div>
+
+                    <div class="hero-intro-section">
+                        <div class="hero-image-container">
+                            <img src="../assets/images/Sadaqah.jpg" alt="وصلها بخير" class="hero-image"
+                                onerror="this.style.display='none'">
+                        </div>
+                        <div class="hero-text-container">
+                            <h1 class="hero-title">جمعية يد الخير</h1>
+                            <p class="hero-description">
+                                جمعية يد الخير هي مؤسسة خيرية رائدة تعمل على خدمة المجتمع وتقديم المساعدات الإنسانية
+                                للمحتاجين. تأسست الجمعية بهدف تعزيز قيم التكافل الاجتماعي والعمل الخيري في المجتمع.
+                                نسعى من خلال برامجنا ومبادراتنا إلى دعم الأسر المحتاجة وتوفير المساعدات العينية والنقدية
+                                لهم، مع التركيز على الشفافية والمسؤولية في إدارة الموارد الخيرية.
+                            </p>
+                            <p class="hero-description">
+                                منصة وصلها بخير هي الموقع الإلكتروني الرسمي لجمعية يد الخير، وهي منصة رقمية مبتكرة
+                                تهدف إلى ربط المحتاجين بالمتبرعين بطريقة بسيطة وسريعة وآمنة. تتيح المنصة للمحتاجين
+                                إضافة طلباتهم بسهولة، وتمكن المتبرعين من تصفح الحالات وتقديم المساعدة بضغطة زر واحدة.
+                                كل شيء يتم بشكل آمن ومضمون، مع ضمان وصول الخير بسرعة إلى من يحتاجه.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar title-icon"></i>
+                إحصائيات المنصة
+            </h2>
+            <div class="stats-grid" id="stats-grid">
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-hands-helping feature-icon"></i>
+                <h3 class="feature-title">ربط مباشر</h3>
+                <p class="feature-desc">ربط مباشر بين المحتاجين والمتبرعين بدون وساطة</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h3 class="feature-title">سرعة الاستجابة</h3>
+                <p class="feature-desc">استجابة سريعة للحالات العاجلة في أقصر وقت</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3 class="feature-title">آمن ومضمون</h3>
+                <p class="feature-desc">نظام آمن يحافظ على خصوصية المستخدمين</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-heart feature-icon"></i>
+                <h3 class="feature-title">خيرك يوصل أسرع</h3>
+                <p class="feature-desc">منصة خيرية تهدف إلى نشر الخير والمساعدة</p>
+            </div>
+        </div>
+
+        <div class="recent-cases-section" id="recent-cases-section">
+            <h2 class="section-title">
+                <i class="fas fa-list title-icon"></i>
+                الحالات المفتوحة
+            </h2>
+            <div class="cases-preview-grid" id="recent-cases-grid">
+                <div style="text-align: center; padding: 2rem; color: var(--muted);">جاري التحميل...</div>
+            </div>
+            <div class="view-all-section">
+                <a href="cases.html" class="btn btn-accent view-all-btn">عرض جميع الحالات</a>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <div class="about-card">
+                <h2 class="card-title">
+                    <i class="fas fa-info-circle title-icon"></i>
+                    مرحباً بك في وصلها بخير
+                </h2>
+                <p class="about-text">
+                    منصة خيرية تهدف إلى ربط المحتاجين بالمتبرعين بطريقة بسيطة وسريعة وآمنة.
+                    نسعى إلى تسهيل عملية التبرع وجعلها في متناول الجميع. نؤمن بأن الخير يجب أن يصل بسرعة
+                    وأن كل شخص يستطيع أن يقدم المساعدة وأن يحصل عليها بسهولة.
+                </p>
+
+                <div class="about-section-divider"></div>
+
+                <h3 class="about-subtitle">
+                    <i class="fas fa-question-circle title-icon"></i>
+                    كيف يعمل الموقع؟
+                </h3>
+                <p class="about-text">
+                    وصلها بخير منصة رقمية تربط بين المحتاجين والمتبرعين مباشرة بدون وساطة.
+                    يمكن للمحتاجين إضافة طلباتهم بسهولة، ويمكن للمتبرعين تصفح الحالات وتقديم المساعدة
+                    بضغطة زر واحدة. كل شيء يتم بشكل آمن ومضمون.
+                </p>
+
+                <div class="about-features">
+                    <div class="about-feature-item">
+                        <i class="fas fa-check feature-check"></i>
+                        <span>إذا كنت محتاجاً، يمكنك إضافة طلبك وسيجد المتبرعون طريقة لتوفيره</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="fas fa-check feature-check"></i>
+                        <span>إذا كنت متبرعاً، يمكنك تصفح الحالات وتقديم المساعدة</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="fas fa-check feature-check"></i>
+                        <span>نظام إشعارات فوري لإعلامك بجميع التحديثات</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="fas fa-check feature-check"></i>
+                        <span>مكان الاستلام موحد: جمعية يد الخير</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="fas fa-check feature-check"></i>
+                        <span>حماية كاملة لبيانات المستخدمين وخصوصيتهم</span>
+                    </div>
+                </div>
+
+                <div class="about-section-divider"></div>
+
+                <h3 class="about-subtitle">
+                    <i class="fas fa-users title-icon"></i>
+                    من يمكنه استخدام المنصة؟
+                </h3>
+                <div class="about-roles">
+                    <div class="about-role-card">
+                        <i class="fas fa-hand-holding-heart role-icon"></i>
+                        <h4 class="role-title">المستفيدون</h4>
+                        <p class="role-desc">
+                            إذا كنت بحاجة إلى مساعدة، يمكنك إنشاء حساب كمستفيد وإضافة طلباتك.
+                            سيقوم المتبرعون بالاطلاع على طلباتك وتوفير ما تحتاجه.
+                        </p>
+                    </div>
+                    <div class="about-role-card">
+                        <i class="fas fa-heart role-icon"></i>
+                        <h4 class="role-title">المتبرعون</h4>
+                        <p class="role-desc">
+                            إذا كنت ترغب في تقديم المساعدة، يمكنك إنشاء حساب كمتبرع وتصفح الحالات
+                            المتاحة واختيار ما تستطيع توفيره. كل مساعدة مهمة ومقدرة.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="about-section-divider"></div>
+
+                <h3 class="about-subtitle">
+                    <i class="fas fa-shield-alt title-icon"></i>
+                    الأمان والخصوصية
+                </h3>
+                <p class="about-text">
+                    نحرص على حماية بيانات المستخدمين وخصوصيتهم. جميع البيانات محمية بتقنيات
+                    أمنية حديثة، وكلمات المرور مشفرة، وجميع الاتصالات آمنة. نحن لا نشارك بياناتك
+                    مع أي طرف ثالث.
+                </p>
+
+                <div class="about-section-divider"></div>
+
+                <h3 class="about-subtitle">
+                    <i class="fas fa-map-marker-alt title-icon"></i>
+                    مكان الاستلام
+                </h3>
+                <p class="about-text">
+                    جميع التبرعات يتم استلامها من مكان موحد وهو <strong>جمعية يد الخير</strong>.
+                    هذا يضمن سهولة التنسيق وتنظيم عملية الاستلام والتوزيع. عند توفير أي حالة،
+                    سيتم إعلام المستفيد بمكان الاستلام عبر الإشعارات.
+                </p>
+
+                <div class="about-section-divider"></div>
+
+                <h3 class="about-subtitle">
+                    <i class="fas fa-lightbulb title-icon"></i>
+                    خطوات الاستخدام
+                </h3>
+                <div class="about-steps">
+                    <div class="about-step-card">
+                        <div class="step-number">1</div>
+                        <h4 class="step-title">إنشاء حساب</h4>
+                        <p class="step-desc">قم بإنشاء حساب جديد واختر دورك (متبرع أو مستفيد)</p>
+                    </div>
+                    <div class="about-step-card">
+                        <div class="step-number">2</div>
+                        <h4 class="step-title">إضافة أو تصفح الحالات</h4>
+                        <p class="step-desc">إذا كنت مستفيداً، أضف طلبك. إذا كنت متبرعاً، تصفح الحالات المتاحة</p>
+                    </div>
+                    <div class="about-step-card">
+                        <div class="step-number">3</div>
+                        <h4 class="step-title">تقديم المساعدة</h4>
+                        <p class="step-desc">المتبرعون يمكنهم توفير الحالات بضغطة زر واحدة</p>
+                    </div>
+                    <div class="about-step-card">
+                        <div class="step-number">4</div>
+                        <h4 class="step-title">الاستلام</h4>
+                        <p class="step-desc">يتم الاستلام من جمعية يد الخير بعد التنسيق</p>
+                    </div>
+                </div>
+
+                <div class="about-section-divider"></div>
+
+                <h3 class="about-subtitle">
+                    <i class="fas fa-star title-icon"></i>
+                    مميزات المنصة
+                </h3>
+                <div class="about-benefits">
+                    <div class="about-benefit-item">
+                        <i class="fas fa-clock benefit-icon"></i>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">سرعة الاستجابة</h4>
+                            <p class="benefit-desc">نظام سريع وفعال يربط المحتاجين بالمتبرعين في أقصر وقت</p>
+                        </div>
+                    </div>
+                    <div class="about-benefit-item">
+                        <i class="fas fa-lock benefit-icon"></i>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">أمان عالي</h4>
+                            <p class="benefit-desc">حماية كاملة للبيانات باستخدام أحدث تقنيات التشفير</p>
+                        </div>
+                    </div>
+                    <div class="about-benefit-item">
+                        <i class="fas fa-bell benefit-icon"></i>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">إشعارات فورية</h4>
+                            <p class="benefit-desc">تحديثات فورية عن حالة طلباتك وتبرعاتك</p>
+                        </div>
+                    </div>
+                    <div class="about-benefit-item">
+                        <i class="fas fa-heart benefit-icon"></i>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">سهولة الاستخدام</h4>
+                            <p class="benefit-desc">واجهة بسيطة وسهلة الاستخدام للجميع</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-tagline">
+                    <i class="fas fa-hands-helping tagline-icon"></i>
+                    <span class="tagline-text">خيرك يوصل أسرع</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <p>كل الحقوق محفوظة لجمعية يد الخير &copy; <span id="current-year"></span></p>
+        </div>
+    </footer>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        async function loadStats() {
+            try {
+                const result = await API.getStats();
+                if (result.status === 'ok' && result.stats) {
+                    const stats = result.stats;
+                    const statsGrid = document.getElementById('stats-grid');
+                    statsGrid.innerHTML = `
+                        <div class="stat-card stat-primary">
+                            <i class="fas fa-folder-open stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_open_cases}</div>
+                                <div class="stat-label">حالة مفتوحة</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-success">
+                            <i class="fas fa-check-circle stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_fulfilled}</div>
+                                <div class="stat-label">حالة تم توفيرها</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-warning">
+                            <i class="fas fa-exclamation-triangle stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.urgent_cases}</div>
+                                <div class="stat-label">حالة عاجلة</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-info">
+                            <i class="fas fa-users stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_users}</div>
+                                <div class="stat-label">مستخدم مسجل</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-purple">
+                            <i class="fas fa-heart stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_donors || 0}</div>
+                                <div class="stat-label">متبرع</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-teal">
+                            <i class="fas fa-hand-holding-heart stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_needy || 0}</div>
+                                <div class="stat-label">مستفيد</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-orange">
+                            <i class="fas fa-gift stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_donations || 0}</div>
+                                <div class="stat-label">تبرع</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-blue">
+                            <i class="fas fa-list-alt stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${stats.total_cases_all || 0}</div>
+                                <div class="stat-label">إجمالي الحالات</div>
+                            </div>
+                        </div>
+                        <div class="stat-card stat-gold">
+                            <i class="fas fa-coins stat-icon"></i>
+                            <div class="stat-content">
+                                <div class="stat-value">${(stats.total_amount || 0).toLocaleString('en-US')}</div>
+                                <div class="stat-label">إجمالي التبرعات (ريال)</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadRecentCases() {
+            try {
+                const result = await API.getRecentCases();
+                const section = document.getElementById('recent-cases-section');
+                const grid = document.getElementById('recent-cases-grid');
+
+                if (result.status === 'ok' && result.cases && result.cases.length > 0) {
+                    grid.innerHTML = result.cases.map(caseItem => `
+                        <div class="case-preview-card ${caseItem.urgent ? 'urgent' : ''}">
+                            <div class="case-preview-header">
+                                <h4 class="case-preview-title">${escapeHtml(caseItem.item_name)}</h4>
+                                ${caseItem.urgent ? '<span class="urgent-badge-small">عاجل</span>' : ''}
+                            </div>
+                            <div class="case-preview-info">
+                                <div class="info-row">
+                                    <span class="info-label">المستفيد :</span>
+                                    <span class="info-value">${escapeHtml(caseItem.user_name)}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">العدد :</span>
+                                    <span class="info-value">${escapeHtml(caseItem.quantity)}</span>
+                                </div>
+                                ${caseItem.type ? `
+                                <div class="info-row">
+                                    <span class="info-label">النوع :</span>
+                                    <span class="info-value">${escapeHtml(caseItem.type)}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                            <a href="cases.html" class="case-preview-link">عرض التفاصيل →</a>
+                        </div>
+                    `).join('');
+                } else {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-inbox empty-icon"></i>
+                            <h2 class="empty-title">لا توجد حالات مفتوحة حالياً</h2>
+                            <p class="empty-desc">لم يتم إضافة أي حالات بعد. كن أول من يضيف حالة!</p>
+                            ${currentUser && currentUser.role === 'needy' ? '<a href="add_case.html" class="btn btn-accent">إضافة حالة جديدة</a>' : '<a href="register.html" class="btn btn-accent"><i class="fas fa-user-plus"></i> سجل الآن</a>'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading recent cases:', error);
+                const grid = document.getElementById('recent-cases-grid');
+                if (grid) {
+                    grid.innerHTML = '<div class="alert alert-error">حدث خطأ أثناء جلب الحالات</div>';
+                }
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            await initAuth();
+            updateNavigation();
+            await loadStats();
+            await loadRecentCases();
+
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function () {
+                    mainNav.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

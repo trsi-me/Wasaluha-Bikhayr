@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ public/index.html [L]
+
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_URI} !^/assets/
+RewriteCond %{REQUEST_URI} !^/config/
+RewriteCond %{REQUEST_URI} !^/includes/
+RewriteCond %{REQUEST_URI} !^/sql/
+RewriteCond %{REQUEST_URI} !^/logs/
+RewriteCond %{REQUEST_URI} !^/legacy/
+RewriteRule ^(.*)$ public/$1 [L]
+
+php_flag display_errors Off
+php_flag display_startup_errors Off
+php_value error_reporting E_ALL
+php_flag log_errors On
+php_value error_log error.log

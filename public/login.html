@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - وصلها بخير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands-helping logo-icon"></i>
+                    <span class="logo-text">وصلها بخير</span>
+                    <span class="logo-tagline">خيرك يوصل أسرع</span>
+                </div>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="main-nav" id="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="cases.html" class="nav-link">الحالات</a>
+                    <a href="login.html" class="nav-link">تسجيل دخول</a>
+                    <a href="register.html" class="nav-link">تسجيل جديد</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-sign-in-alt page-icon"></i>
+                    تسجيل الدخول
+                </h1>
+                <p class="page-subtitle">سجل دخولك للوصول إلى حسابك</p>
+            </div>
+            
+            <div class="card form-card">
+                <h2 class="card-title">
+                    <i class="fas fa-user title-icon"></i>
+                    مرحباً بعودتك
+                </h2>
+                
+                <div id="error-message" class="alert alert-error" style="display: none;"></div>
+                <div id="success-message" class="alert alert-success" style="display: none;"></div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login">البريد الإلكتروني أو رقم الجوال *</label>
+                        <input type="text" class="form-input" id="login" name="login" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">كلمة المرور *</label>
+                        <input type="password" class="form-input" id="password" name="password" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-accent" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt btn-icon"></i>
+                        <span>تسجيل الدخول</span>
+                    </button>
+                </form>
+
+                <p style="text-align: center; margin-top: 1.5rem; color: var(--muted);">
+                    ليس لديك حساب؟ <a href="register.html" style="color: var(--accent);">تسجيل جديد</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <p>كل الحقوق محفوظة لجمعية يد الخير &copy; <span id="current-year"></span></p>
+        </div>
+    </footer>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            const isLoggedIn = await initAuth();
+            if (isLoggedIn) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                });
+            }
+            
+            document.getElementById('login-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const errorMsg = document.getElementById('error-message');
+                const successMsg = document.getElementById('success-message');
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'none';
+                
+                const login = document.getElementById('login').value.trim();
+                const password = document.getElementById('password').value;
+                
+                if (!login || !password) {
+                    errorMsg.textContent = 'يرجى ملء جميع الحقول';
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                
+                try {
+                    const result = await API.login(login, password);
+                    if (result.status === 'ok') {
+                        await initAuth();
+                        window.location.href = 'index.html';
+                    } else {
+                        errorMsg.textContent = result.msg || 'حدث خطأ أثناء تسجيل الدخول';
+                        errorMsg.style.display = 'block';
+                    }
+                } catch (error) {
+                    errorMsg.textContent = 'حدث خطأ في الاتصال';
+                    errorMsg.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

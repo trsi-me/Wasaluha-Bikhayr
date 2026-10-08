@@ -34,11 +34,11 @@ CREATE TABLE IF NOT EXISTS notifications (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO users (name, email, phone, password, role) VALUES
-('أحمد محمد', 'ahmed@example.com', '0501234567', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'donor'),
-('فاطمة علي', 'fatima@example.com', '0502345678', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'needy'),
-('خالد سعيد', 'khalid@example.com', '0503456789', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'donor'),
-('سارة أحمد', 'sara@example.com', '0504567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'needy'),
-('محمد حسن', 'mohammed@example.com', '0505678901', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'donor');
+('أحمد محمد', 'ahmed@example.com', '0501234567', '', 'donor'),
+('فاطمة علي', 'fatima@example.com', '0502345678', '', 'needy'),
+('خالد سعيد', 'khalid@example.com', '0503456789', '', 'donor'),
+('سارة أحمد', 'sara@example.com', '0504567890', '', 'needy'),
+('محمد حسن', 'mohammed@example.com', '0505678901', '', 'donor');
 
 INSERT INTO cases (user_id, item_name, quantity, type, status, urgent, amount, created_at) VALUES
 (2, 'أرز', 50, 'طعام', 'open', 0, NULL, NOW() - INTERVAL 2 DAY),
